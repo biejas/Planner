@@ -11,6 +11,7 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { AuthenticationService } from './authentication.service';
 import { AuthGuardService } from './auth-guard.service';
+import { EnrollmentService } from './enrollment.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -35,7 +36,8 @@ const routes: Routes = [
   ],
   providers: [
     AuthenticationService, 
-    AuthGuardService
+    AuthGuardService,
+    EnrollmentService
   ],
   bootstrap: [AppComponent]
 })

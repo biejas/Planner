@@ -6,14 +6,23 @@ const courseschema = new mongoose.Schema({
         unique: true,
         required: true
     },
-    subject: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'Subject',
-        required: true
+    coursetype: {
+        type: String
     },
+    group: {
+        type: String
+    },
+    // subject: {
+    //     type: mongoose.SchemaTypes.ObjectId,
+    //     ref: 'Subject',
+    //     required: true
+    // },
+    // teacher: {
+    //     type: mongoose.SchemaTypes.ObjectId,
+    //     ref: 'Teacher'
+    // },
     teacher: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'Teacher'
+        type: String
     },
     maxparticipants: {
         type: Number,

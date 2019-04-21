@@ -20,6 +20,8 @@ export interface TokenPayload {
   email: string;
   password: string;
   name?: string;
+  fgroup?: string;
+  lgroup?: string
 }
 
 @Injectable()
