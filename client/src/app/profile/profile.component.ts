@@ -8,17 +8,11 @@ import { EnrollmentService } from '../enrollment.service';
 export class ProfileComponent {
   details: UserDetails;
 
-  constructor(private auth: AuthenticationService, private enroll: EnrollmentService) {}
+  constructor(private auth: AuthenticationService) {}
   
   ngOnInit() {    
     this.auth.profile().subscribe(user => {
       this.details = user;
-    }, (err) => {
-      console.error(err);
-    });
-
-    this.enroll.courses().subscribe( courses => {
-      console.log(courses);
     }, (err) => {
       console.error(err);
     });

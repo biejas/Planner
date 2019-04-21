@@ -12,12 +12,14 @@ import { HomeComponent } from './home/home.component';
 import { AuthenticationService } from './authentication.service';
 import { AuthGuardService } from './auth-guard.service';
 import { EnrollmentService } from './enrollment.service';
+import { EnrollmentComponent } from './enrollment/enrollment.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] }
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
+  { path: 'enroll', component: EnrollmentComponent, canActivate: [AuthGuardService] }
 ];
 
 @NgModule({
@@ -26,7 +28,8 @@ const routes: Routes = [
     ProfileComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    EnrollmentComponent
   ],
   imports: [
     BrowserModule,

@@ -17,6 +17,8 @@ router.get('/profile', auth, ctrlProfile.profileRead);
 router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);
 
+//enrollment
 router.get('/courses', ctrlEnroll.courses);
+router.post('/enroll', ctrlEnroll.enroll);
 
 module.exports = router;

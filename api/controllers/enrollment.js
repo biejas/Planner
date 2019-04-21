@@ -12,3 +12,9 @@ module.exports.courses = function(req, res){
         res.json(docs);
     });
 };
+
+module.exports.enroll = function(req, res){
+    
+    var choices = req.body.choices;
+    console.log(choices);
+};

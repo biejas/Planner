@@ -10,7 +10,8 @@ const subjectSchema = new mongoose.Schema({
         type: String
     },
     courses: [{
-        type: mongoose.SchemaTypes.ObjectId
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'Course'
     }]
 });
 
