@@ -9,10 +9,12 @@ import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { EnrollmentComponent } from './enrollment/enrollment.component';
+
 import { AuthenticationService } from './authentication.service';
 import { AuthGuardService } from './auth-guard.service';
 import { EnrollmentService } from './enrollment.service';
-import { EnrollmentComponent } from './enrollment/enrollment.component';
+import { WebsocketService } from './websocket.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -40,7 +42,8 @@ const routes: Routes = [
   providers: [
     AuthenticationService, 
     AuthGuardService,
-    EnrollmentService
+    EnrollmentService,
+    WebsocketService
   ],
   bootstrap: [AppComponent]
 })
