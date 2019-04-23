@@ -5,18 +5,21 @@
       <h1>Zapisy na zajecia</h1>
       <form (submit)="enroll()">
           <div class="form-group" *ngFor="let subject of subjectsArray">
-            <label for="choices[subject].choice1">Wybór 1 {{ subject }} </label>
+            <h3>{{ subject }} </h3> <br/>
+            <label for="choices[subject].choice1">Wybór 1</label>
             <!-- <input type="text" class="form-control" name="name" placeholder="Enter your name" [(ngModel)]="credentials.name"> -->
             <select >
               <option *ngFor="let course of subjects[subject]" [value]="choices[subject].choice1">{{ course.group }}</option>
             </select>
 
-            <label for="choices[subject].choice2">Wybór 2 {{ subject }} </label>
+            <label for="choices[subject].choice2">Wybór 2</label>
+
             <select >
               <option *ngFor="let course of subjects[subject]" [value]="choices[subject].choice2">{{ course.group }}</option>
             </select>
 
-            <label for="choices[subject].choice3">Wybór 3 {{ subject }} </label>
+            <label for="choices[subject].choice3">Wybór 3</label>
+
             <select >
               <option *ngFor="let course of subjects[subject]" [value]="choices[subject].choice3">{{ course.group }}</option>
             </select>
