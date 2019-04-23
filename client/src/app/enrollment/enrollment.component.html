@@ -3,6 +3,16 @@
   <div class="row">
     <div class="col-md-6">
       <h1>Zapisy na zajecia</h1>
+      <form (submit)="enroll()">
+          <div class="form-group" *ngFor="let subject of subjectsArray">
+            <label for="choices[subject].choice1">Wybór 1 {{ subject }} </label>
+            <!-- <input type="text" class="form-control" name="name" placeholder="Enter your name" [(ngModel)]="credentials.name"> -->
+            <select>
+              <option *ngFor="let course of subjects[subject]" [value]="choices[subject].choice1">{{ course.group }}</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-default">Enroll!</button>
+        </form>
     </div>
   </div>
 
