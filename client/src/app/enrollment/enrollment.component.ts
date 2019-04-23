@@ -23,7 +23,7 @@ export class EnrollmentComponent implements OnInit {
 
   ngOnInit() {
     this.enrollservice.courses().subscribe( subs => {
-      //console.log(subs);
+//      console.log(subs);
       subs.forEach(sub => {
         this.subjects[sub.name] = sub.courses;
         this.choices[sub.name] = {choice1: ""};
