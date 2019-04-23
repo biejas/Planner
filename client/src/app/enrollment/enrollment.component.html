@@ -7,8 +7,18 @@
           <div class="form-group" *ngFor="let subject of subjectsArray">
             <label for="choices[subject].choice1">Wybór 1 {{ subject }} </label>
             <!-- <input type="text" class="form-control" name="name" placeholder="Enter your name" [(ngModel)]="credentials.name"> -->
-            <select>
+            <select >
               <option *ngFor="let course of subjects[subject]" [value]="choices[subject].choice1">{{ course.group }}</option>
+            </select>
+
+            <label for="choices[subject].choice2">Wybór 2 {{ subject }} </label>
+            <select >
+              <option *ngFor="let course of subjects[subject]" [value]="choices[subject].choice2">{{ course.group }}</option>
+            </select>
+
+            <label for="choices[subject].choice3">Wybór 3 {{ subject }} </label>
+            <select >
+              <option *ngFor="let course of subjects[subject]" [value]="choices[subject].choice3">{{ course.group }}</option>
             </select>
           </div>
           <button type="submit" class="btn btn-default">Enroll!</button>
