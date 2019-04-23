@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
 import { Router } from '@angular/router';
 
-export interface EnrollmentDetails {
+export class EnrollmentDetails {
     choices: [SubjectChoice]
 }
 
@@ -24,7 +24,7 @@ export class EnrollmentService{
         return this.http.get(`api/courses`);
     }
 
-    public enroll(enrollmentDetails: EnrollmentDetails): Observable<any>{
+    public enroll(enrollmentDetails: any): Observable<any>{
         return this.http.post(`api/enroll`,enrollmentDetails);
     }
 }
