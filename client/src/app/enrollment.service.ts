@@ -27,7 +27,8 @@ export class EnrollmentService{
     }
 
     public enroll(enrollmentDetails: any): Observable<any>{
-        var user= this.auth.getUserDetails();
+      //  var user= this.auth.getUserDetails();
+      //  console.log(enrollmentDetails);
         return this.http.post(`api/enroll`,enrollmentDetails);
 
     }

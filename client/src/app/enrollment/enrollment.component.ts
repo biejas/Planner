@@ -9,7 +9,7 @@ import { WebsocketService } from '../websocket.service';
   styleUrls: ['./enrollment.component.css']
 })
 export class EnrollmentComponent implements OnInit {
-
+  details: UserDetails;
   private choices: Object= {};
 
   private subjects: Object = {};
@@ -34,6 +34,14 @@ export class EnrollmentComponent implements OnInit {
       console.error(err);
     });
 
+    // this.auth.profile().subscribe(user => {
+    //   this.details = user;
+    // }, (err) => {
+    //   console.error(err);
+    // });
+    //
+    //
+    // console.log(this.details);
     const sock = this.websocket.connect();
     sock.on('hello', () =>{
       console.log('got hello');
