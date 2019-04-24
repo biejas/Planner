@@ -14,9 +14,9 @@ module.exports.courses = function(req, res){
 };
 
 module.exports.enroll = function(req, res) {
-   var email= req.body.email;
-   delete req.body.email;
-    var choices = req.body;
+  var email= req.body.useremail;
+  delete req.body.useremail;
+  var choices = req.body;
      for (subject in choices){
        for (choice in choices[subject]){
          User.findOne({email: email}, function (err, user) {
@@ -30,4 +30,5 @@ module.exports.enroll = function(req, res) {
      break;
    }
   }
+  res.status(200).json("Zapisałeś się!");
 };

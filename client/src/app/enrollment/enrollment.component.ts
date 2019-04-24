@@ -9,7 +9,7 @@ import { WebsocketService } from '../websocket.service';
   styleUrls: ['./enrollment.component.css']
 })
 export class EnrollmentComponent implements OnInit {
-  details: UserDetails;
+  private coursesaved;
   private choices: Object= {};
 
   private subjects: Object = {};
@@ -18,7 +18,11 @@ export class EnrollmentComponent implements OnInit {
   constructor(private auth: AuthenticationService, private enrollservice: EnrollmentService, private websocket: WebsocketService) { }
 
   enroll() {
-    this.enrollservice.enroll(this.choices).subscribe();
+    this.enrollservice.enroll(this.choices).subscribe(str=> {
+      this.coursesaved = str;
+    }, (err) => {
+      console.error(err);
+    });
   }
 
   ngOnInit() {
@@ -34,14 +38,13 @@ export class EnrollmentComponent implements OnInit {
       console.error(err);
     });
 
-    // this.auth.profile().subscribe(user => {
-    //   this.details = user;
-    // }, (err) => {
-    //   console.error(err);
-    // });
-    //
-    //
-    // console.log(this.details);
+    this.auth.profile().subscribe(user => {
+      this.choices['useremail'] = user.email;
+    }, (err) => {
+      console.error(err);
+    });
+
+
     const sock = this.websocket.connect();
     sock.on('hello', () =>{
       console.log('got hello');

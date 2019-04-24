@@ -4,7 +4,6 @@
     <div class="col-md-6">
       <h1>Zapisy na zajecia</h1>
       <form (submit)="enroll()">
-        <input type="text" class="form-control" name="email" placeholder="Enter your email" [(ngModel)]="choices.email">
           <div class="form-group" *ngFor="let subject of subjectsArray">
             <h3>{{ subject }} </h3> <br/>
             <label for="choices[subject].choice1">Wybór 1</label>
@@ -26,6 +25,7 @@
           </div>
           <button type="submit" class="btn btn-default">Enroll!</button>
         </form>
+        <h2> {{coursesaved}}</h2>
     </div>
   </div>
 
