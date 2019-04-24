@@ -18,16 +18,14 @@ export class EnrollmentComponent implements OnInit {
   constructor(private auth: AuthenticationService, private enrollservice: EnrollmentService, private websocket: WebsocketService) { }
 
   enroll() {
-    this.enrollservice.enroll(this.choices);
+    this.enrollservice.enroll(this.choices).subscribe();
   }
 
   ngOnInit() {
     this.enrollservice.courses().subscribe( subs => {
-//      console.log(subs);
       subs.forEach(sub => {
         this.subjects[sub.name] = sub.courses;
         this.choices[sub.name] = {choice1: ""};
-        console.log(this.subjects);
       });
 
       this.subjectsArray=Object.keys(this.subjects);

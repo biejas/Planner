@@ -13,8 +13,27 @@ module.exports.courses = function(req, res){
     });
 };
 
-module.exports.enroll = function(req, res){
-    
-    var choices = req.body.choices;
-    console.log(choices);
+module.exports.enroll =  async function(req, res) {
+    var choices = req.body;
+
+     for (subject in choices){
+       for (choice in choices[subject]){
+        //  Course.update({group: choices[subject][choice]}, { $push: { participants: user._id } },  done);
+         break;
+        //await findCourse({group: choices[subject][choice]}, course);
+
+      //  if (courseParticipants.maxparticipants > courseParticipants.participants.length){
+      //    courseParticipants.participants.push();//dodac usera
+      //    Course.findByIdAndUpdate({_id: courseParticipants._id}, courseParticipants.participants, {new: true}, function (err, docs) { res.json(docs);});
+          // break;
+       }
+     }
+    //
+    // }
 };
+
+// const findCourse = (value, res) => {
+//   return Course.findOne(value).exec(function(err, docs){
+//       res.json(docs);
+//   });
+// };
