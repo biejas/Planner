@@ -20,7 +20,6 @@ require('./api/models/db');
 // [SH] Bring in the Passport config after model is defined
 require('./api/config/passport');
 
-
 // [SH] Bring in the routes for the API (delete the default routes)
 var routesApi = require('./api/routes/index');
 
