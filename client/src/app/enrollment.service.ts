@@ -11,10 +11,8 @@ export class EnrollmentDetails {
 }
 
 export interface SubjectChoice {
-    name: String,
-    choice1: String,
-    choice2: String,
-    choice3: String
+    subject: String,
+    group: String
 }
 
 @Injectable()

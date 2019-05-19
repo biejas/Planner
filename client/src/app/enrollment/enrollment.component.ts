@@ -15,6 +15,8 @@ export class EnrollmentComponent implements OnInit {
   private subjects: Object = {};
   private subjectsArray: Array<String> = [];
 
+  private priorityNumbers: Array<Number> = [];
+
   constructor(private auth: AuthenticationService, private enrollservice: EnrollmentService, private websocket: WebsocketService) { }
 
   enroll() {
@@ -29,11 +31,21 @@ export class EnrollmentComponent implements OnInit {
     this.enrollservice.courses().subscribe( subs => {
       subs.forEach(sub => {
         this.subjects[sub.name] = sub.courses;
-        this.choices[sub.name] = {choice1: ""};
       });
 
       this.subjectsArray=Object.keys(this.subjects);
 
+      const values = Object.keys(this.subjects).map(key => this.subjects[key]);
+
+      var priorityAmount = 0;
+      for(var i=0; i<values.length; i++){
+        priorityAmount+=values[i].length;
+      }
+
+      for(var i=0; i<priorityAmount; i++){
+          this.priorityNumbers[i]=i;
+          this.choices[i] = {subject: "", group: ""};
+      }
     }, (err) => {
       console.error(err);
     });
