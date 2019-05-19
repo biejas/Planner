@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { EnrollmentComponent } from './enrollment/enrollment.component';
+import { AdminpanelComponent } from './adminpanel/adminpanel.component';
 
 import { AuthenticationService } from './authentication.service';
 import { AuthGuardService } from './auth-guard.service';
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
-  { path: 'enroll', component: EnrollmentComponent, canActivate: [AuthGuardService] }
+  { path: 'enroll', component: EnrollmentComponent, canActivate: [AuthGuardService] },
+  { path: 'admin', component: AdminpanelComponent, canActivate: [AuthGuardService] }
 ];
 
 @NgModule({
@@ -31,7 +33,8 @@ const routes: Routes = [
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    EnrollmentComponent
+    EnrollmentComponent,
+    AdminpanelComponent
   ],
   imports: [
     BrowserModule,

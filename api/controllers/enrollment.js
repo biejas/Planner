@@ -17,18 +17,18 @@ module.exports.enroll = function(req, res) {
   var email= req.body.useremail;
   delete req.body.useremail;
   var choices = req.body;
-     for (subject in choices){
-       for (choice in choices[subject]){
-         User.findOne({email: email}, function (err, user) {
-           var reply = { participants: mongoose.Types.ObjectId(user._id)};
-           Course.findById(choices[subject][choice], function(err, doc){
-             Course.findByIdAndUpdate(choices[subject][choice], { $push: reply }, {returnNewDocument: true}  , function(err, doc){
-               if (err) return console.log("Update error: " + err);
+    for (subject in choices){
+      for (choice in choices[subject]){
+        User.findOne({email: email}, function (err, user) {
+          var reply = { participants: mongoose.Types.ObjectId(user._id)};
+          Course.findById(choices[subject][choice], function(err, doc){
+            Course.findByIdAndUpdate(choices[subject][choice], { $push: reply }, {returnNewDocument: true}  , function(err, doc){
+              if (err) return console.log("Update error: " + err);
               });
-         });
+        });
     });
-     break;
-   }
+    break;
+  }
   }
   res.status(200).json("Zapisałeś się!");
 };
