@@ -20,11 +20,12 @@ export class AdminpanelComponent implements OnInit {
   }
 
   addGroup() {
-    this.newSubject.groups.push({
+    this.newSubject.groups.unshift({
       coursetype : '',
       group : '',
       teacher : '',
-      maxparticipants: 0
+      maxparticipants: 0,
+      participants : []
     });
   }
 

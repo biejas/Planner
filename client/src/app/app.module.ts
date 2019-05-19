@@ -16,6 +16,7 @@ import { AuthenticationService } from './authentication.service';
 import { AuthGuardService } from './auth-guard.service';
 import { EnrollmentService } from './enrollment.service';
 import { WebsocketService } from './websocket.service';
+import { AdminpanelService } from './adminpanel.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -46,7 +47,8 @@ const routes: Routes = [
     AuthenticationService, 
     AuthGuardService,
     EnrollmentService,
-    WebsocketService
+    WebsocketService,
+    AdminpanelService
   ],
   bootstrap: [AppComponent]
 })
