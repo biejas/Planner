@@ -7,7 +7,11 @@ var Teacher = mongoose.model('Teacher');
 
 var studentsEnrollment = [];
 
+<<<<<<< HEAD
 //var smiesznaZmienna = 0;
+=======
+var smiesznaZmienna = 0;
+>>>>>>> e3ca0114b64a1549920e1f85dfe4942f66ba3c23
 
 module.exports.courses = function(req, res){
 
@@ -19,18 +23,30 @@ module.exports.courses = function(req, res){
 
 module.exports.enroll = function(req, res){
         studentsEnrollment.push(req.body);
+<<<<<<< HEAD
 //        smiesznaZmienna++;
         res.status(200).json("Zapisałeś się!");
 //      if(smiesznaZmienna>1) {
 //        finishEnrollment();
 //      }
+=======
+        smiesznaZmienna++;
+        res.status(200).json("Zapisałeś się!");
+      if(smiesznaZmienna>1) {
+        finishEnrollment();
+      }
+>>>>>>> e3ca0114b64a1549920e1f85dfe4942f66ba3c23
 
 };
 
 function finishEnrollment(){
       var result = startEnrolling();
       studentsEnrollment.length = 0;
+<<<<<<< HEAD
 //      smiesznaZmienna = 0;
+=======
+      smiesznaZmienna = 0;
+>>>>>>> e3ca0114b64a1549920e1f85dfe4942f66ba3c23
 }
 
 function startEnrolling(){
@@ -38,9 +54,14 @@ function startEnrolling(){
     var choiceSize = Object.keys(studentsEnrollment[0]).length -1;
     for(var j=0; j< choiceSize; j++){
       for(var i=0; i< studentsEnrollment.length; i++){
+<<<<<<< HEAD
 
     //    console.log(studentsEnrollment[i][j]);
     //    console.log(studentsEnrollment[i]['useremail']);
+=======
+        console.log(studentsEnrollment[i][j]);
+        console.log(studentsEnrollment[i]['useremail']);
+>>>>>>> e3ca0114b64a1549920e1f85dfe4942f66ba3c23
       }
     }
 
