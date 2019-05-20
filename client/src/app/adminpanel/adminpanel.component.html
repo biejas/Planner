@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row">
+      <div class="col-md-6">
+        <h1>dodaj przedmiot</h1>
+        <form (submit)="addSubject()">
+          <div class="form-group">
+            <label for="name">Nazwa przedmiotu</label>
+            <input type="text" class="form-control" name="name" placeholder="wpisz nazwe" [(ngModel)]="newSubject.name">
+          </div>
+          <!-- <div class="form-group">
+            <label for="numberGroups">liczba grup</label>
+            <select class="form-control" name="numberGroups" [(ngModel)]="numberGroups">
+              <option *ngFor="let number of [1,2,3,4,5,6,7,8,9,10]" [value]="number">{{ number }}</option>
+            </select>
+          </div> -->
+          <button type="button" class="btn btn-default" (click)="addGroup()">+</button>
+          <div *ngFor="let index of newSubject.groups">
+            <div class="form-group">
+                <label for="groupIndex{{index}}">grupa</label>
+                <input type="text" class="form-control" name="groupIndex{{index}}" placeholder="wpisz grupe" [(ngModel)]="index.group">
+            </div>
+            <div class="form-group">
+                <label for="courseType{{index}}">typ zajec</label>
+                <input type="text" class="form-control" name="courseType{{index}}" placeholder="wpisz rodzaj" [(ngModel)]="index.coursetype">
+            </div>
+            <div class="form-group">
+                <label for="teacher{{index}}">prowadzacy</label>
+                <input type="text" class="form-control" name="teacher{{index}}" placeholder="nazwisko prowadzacego" [(ngModel)]="index.teacher">
+            </div>
+            <div class="form-group">
+                <label for="maxParticipants{{index}}">liczba uczestnikow</label>
+                <input type="text" class="form-control" name="maxParticipants{{index}}" placeholder="liczba uczestnikow" [(ngModel)]="index.maxparticipants">
+            </div>
+            <hr/>
+          </div>
+          <button type="submit" class="btn btn-default">Dodaj przedmiot</button>
+        </form>
+      </div>
+    </div>
+</div>

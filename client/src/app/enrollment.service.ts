@@ -26,6 +26,5 @@ export class EnrollmentService{
 
     public enroll(enrollmentDetails: any): Observable<any>{
         return this.http.post(`api/enroll`,enrollmentDetails);
-
     }
 }
