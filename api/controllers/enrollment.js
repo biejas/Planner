@@ -59,7 +59,7 @@ function startEnrolling(){
     }
 }
 
-function sendEnrollmentsToDatabase(){
+async function sendEnrollmentsToDatabase(){
 
   //console.log(readyStudentsEnrollment);
   for (var sub in readyStudentsEnrollment) {
@@ -67,16 +67,21 @@ function sendEnrollmentsToDatabase(){
     for (course of readyStudentsEnrollment[sub]) {
       var listOfUserId= [];
       var reply = [];
-      User.find({'email': { $in: course.participants}}, function(err, docs){
+      await User.find({'email': { $in: course.participants}}, async function(err, docs){
           for (user of docs) {
             listOfUserId.push(user._id);
           }
           reply={participants: {$each: listOfUserId}};
-          Course.findByIdAndUpdate(course.id, { $addToSet: reply }, {new: true}  , function(err, doc){
-            if (err) {return console.log("Update error: " + err);}
-            else {console.log("KOLEJNA PETLA");}
-          });
-
+          try{
+          let updatedCourse = await Course.findByIdAndUpdate(course.id, { $addToSet: reply }, {new: true});
+          if (!updatedCourse) {
+                return console.log('Not Found Error');
+              } else {
+                console.log('OK');
+              }
+            } catch (err) {
+              console.log('Error');
+            }
       });
 
     }
