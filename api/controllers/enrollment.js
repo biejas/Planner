@@ -18,6 +18,7 @@ module.exports.enroll = function(req, res) {
   var email= req.body.useremail;
   delete req.body.useremail;
   var choices = req.body;
+<<<<<<< HEAD
     console.log("Przedmiot:" +choices);
   var isEnrolled = false;
      for (subject in choices){
@@ -44,6 +45,20 @@ module.exports.enroll = function(req, res) {
        //console.log("DRUGI"+isEnrolled);
        if (isEnrolled) {break;}
      }
+=======
+    for (subject in choices){
+      for (choice in choices[subject]){
+        User.findOne({email: email}, function (err, user) {
+          var reply = { participants: mongoose.Types.ObjectId(user._id)};
+          Course.findById(choices[subject][choice], function(err, doc){
+            Course.findByIdAndUpdate(choices[subject][choice], { $push: reply }, {returnNewDocument: true}  , function(err, doc){
+              if (err) return console.log("Update error: " + err);
+              });
+        });
+    });
+    break;
+  }
+>>>>>>> 55c598ab1be3c695da616f4b6b9502ec6cefbef6
   }
   res.status(200).json("Zapisałeś się!");
 };

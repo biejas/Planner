@@ -9,6 +9,7 @@ var auth = jwt({
 var ctrlProfile = require('../controllers/profile');
 var ctrlAuth = require('../controllers/authentication');
 var ctrlEnroll = require('../controllers/enrollment');
+var ctrlAdmin = require('../controllers/adminpanel');
 
 // profile
 router.get('/profile', auth, ctrlProfile.profileRead);
@@ -20,5 +21,9 @@ router.post('/login', ctrlAuth.login);
 //enrollment
 router.get('/courses', ctrlEnroll.courses);
 router.post('/enroll', ctrlEnroll.enroll);
+
+//adminpanel
+router.get('/admin', auth, ctrlAdmin.adminRead);
+router.post('/subjects', ctrlAdmin.addSubject);
 
 module.exports = router;

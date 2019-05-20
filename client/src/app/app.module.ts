@@ -10,18 +10,21 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { EnrollmentComponent } from './enrollment/enrollment.component';
+import { AdminpanelComponent } from './adminpanel/adminpanel.component';
 
 import { AuthenticationService } from './authentication.service';
 import { AuthGuardService } from './auth-guard.service';
 import { EnrollmentService } from './enrollment.service';
 import { WebsocketService } from './websocket.service';
+import { AdminpanelService } from './adminpanel.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
-  { path: 'enroll', component: EnrollmentComponent, canActivate: [AuthGuardService] }
+  { path: 'enroll', component: EnrollmentComponent, canActivate: [AuthGuardService] },
+  { path: 'admin', component: AdminpanelComponent, canActivate: [AuthGuardService] }
 ];
 
 @NgModule({
@@ -31,7 +34,8 @@ const routes: Routes = [
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    EnrollmentComponent
+    EnrollmentComponent,
+    AdminpanelComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,8 @@ const routes: Routes = [
     AuthenticationService, 
     AuthGuardService,
     EnrollmentService,
-    WebsocketService
+    WebsocketService,
+    AdminpanelService
   ],
   bootstrap: [AppComponent]
 })
