@@ -6,8 +6,9 @@ var Subject = mongoose.model('Subject');
 var Teacher = mongoose.model('Teacher');
 
 var studentsEnrollment = [];
-
-//var smiesznaZmienna = 0;
+var readyStudentsEnrollment = {};
+var smiesznaZmienna = 0;
+var maxparticipants = 20;
 
 module.exports.courses = function(req, res){
 
@@ -19,34 +20,87 @@ module.exports.courses = function(req, res){
 
 module.exports.enroll = function(req, res){
         studentsEnrollment.push(req.body);
-//        smiesznaZmienna++;
+        smiesznaZmienna++;
         res.status(200).json("Zapisałeś się!");
-//      if(smiesznaZmienna>1) {
-//        finishEnrollment();
-//      }
+      if(smiesznaZmienna>1) {
+        prepareArrays();
+        finishEnrollment();
+      }
 
 };
 
 function finishEnrollment(){
-      var result = startEnrolling();
+      startEnrolling();
+      sendEnrollmentsToDatabase();
       studentsEnrollment.length = 0;
-//      smiesznaZmienna = 0;
+      smiesznaZmienna = 0;
 }
 
 function startEnrolling(){
-  //  console.log(studentsEnrollment);
     var choiceSize = Object.keys(studentsEnrollment[0]).length -1;
     for(var j=0; j< choiceSize; j++){
       for(var i=0; i< studentsEnrollment.length; i++){
+        // getMaxParticipants(studentsEnrollment[i][j].group, function(err,course) {
+        //   if( err ) {
+        //   } else {
+        //     //console.log(course.maxparticipants);
+        //   }
+        // });
 
-    //    console.log(studentsEnrollment[i][j]);
-    //    console.log(studentsEnrollment[i]['useremail']);
+        let gro = findGroup(i,j);
+        if(gro.participants.length< maxparticipants){
+          let sign=checkIfSigned(studentsEnrollment[i].useremail, studentsEnrollment[i][j].subject);
+          if(!sign){
+            gro.participants.push(studentsEnrollment[i].useremail);
+          }
+        }
       }
+      shuffle(studentsEnrollment);
     }
-
-    //shuffle(studentsEnrollment);
-
 }
+
+function sendEnrollmentsToDatabase(){
+
+  //console.log(readyStudentsEnrollment);
+  for (var sub in readyStudentsEnrollment) {
+   // console.log(readyStudentsEnrollment[sub]);
+    for (course of readyStudentsEnrollment[sub]) {
+      var listOfUserId= [];
+      var reply = [];
+      User.find({'email': { $in: course.participants}}, function(err, docs){
+          for (user of docs) {
+            listOfUserId.push(user._id);
+          }
+          reply={participants: {$each: listOfUserId}};
+          Course.findByIdAndUpdate(course.id, { $addToSet: reply }, {new: true}  , function(err, doc){
+            if (err) {return console.log("Update error: " + err);}
+            else {console.log("KOLEJNA PETLA");}
+          });
+
+      });
+
+    }
+  }
+}
+
+
+
+
+
+function checkIfSigned(useremail, subject){
+  for (group of readyStudentsEnrollment[subject]) {
+    if(group.participants.includes(useremail)){
+      return true;
+    }
+  }
+  return false;
+}
+
+
+function findGroup(i,j){
+  return readyStudentsEnrollment[studentsEnrollment[i][j].subject].find(x => x.id === studentsEnrollment[i][j].group);
+}
+
 
 // Fisher-Yates shuffle
 function shuffle(array) {
@@ -55,6 +109,35 @@ function shuffle(array) {
     [array[i], array[j]] = [array[j], array[i]];
   }
 }
+
+function prepareArrays(){
+  var choiceSize = Object.keys(studentsEnrollment[0]).length -1;
+  for(var i=0; i< choiceSize; i++){
+  readyStudentsEnrollment[studentsEnrollment[0][i].subject]= [];
+  }
+  for(var i=0; i< choiceSize; i++){
+    readyStudentsEnrollment[studentsEnrollment[0][i].subject].push({id: studentsEnrollment[0][i].group, participants: []});
+  }
+}
+
+
+
+
+
+
+
+
+
+function getMaxParticipants(courseId, callback){
+  Course.findById(courseId, function(err, item){
+    if(!err) {
+      callback(null,item);
+    } else {
+      callback("error");
+    }
+  });
+}
+
 // module.exports.enroll = function(req, res) {
 //   var email= req.body.useremail;
 //   delete req.body.useremail;
