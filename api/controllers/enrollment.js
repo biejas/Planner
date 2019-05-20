@@ -5,13 +5,16 @@ var Course = mongoose.model('Course');
 var Subject = mongoose.model('Subject');
 var Teacher = mongoose.model('Teacher');
 
+mongoose.Promise = global.Promise;
+
 var studentsEnrollment = [];
 var readyStudentsEnrollment = {};
 var smiesznaZmienna = 0;
-var maxparticipants = 20;
+
+var maxcourse=[];
+getMaxParticipants();
 
 module.exports.courses = function(req, res){
-
     var query = Subject.find().populate('courses');
     query.exec(function(err, docs){
         res.json(docs);
@@ -36,19 +39,13 @@ function finishEnrollment(){
       smiesznaZmienna = 0;
 }
 
-function startEnrolling(){
+async function startEnrolling(){
     var choiceSize = Object.keys(studentsEnrollment[0]).length -1;
     for(var j=0; j< choiceSize; j++){
       for(var i=0; i< studentsEnrollment.length; i++){
-        // getMaxParticipants(studentsEnrollment[i][j].group, function(err,course) {
-        //   if( err ) {
-        //   } else {
-        //     //console.log(course.maxparticipants);
-        //   }
-        // });
-
         let gro = findGroup(i,j);
-        if(gro.participants.length< maxparticipants){
+        let maxparticipants = findMaxParticipants(i,j);
+        if(gro.participants.length< maxparticipants.max){
           let sign=checkIfSigned(studentsEnrollment[i].useremail, studentsEnrollment[i][j].subject);
           if(!sign){
             gro.participants.push(studentsEnrollment[i].useremail);
@@ -60,37 +57,39 @@ function startEnrolling(){
 }
 
 async function sendEnrollmentsToDatabase(){
-
-  //console.log(readyStudentsEnrollment);
   for (var sub in readyStudentsEnrollment) {
-   // console.log(readyStudentsEnrollment[sub]);
     for (course of readyStudentsEnrollment[sub]) {
       var listOfUserId= [];
       var reply = [];
+      try{
       await User.find({'email': { $in: course.participants}}, async function(err, docs){
           for (user of docs) {
             listOfUserId.push(user._id);
           }
+          console.log("start");
+          console.log(listOfUserId);
+
+
           reply={participants: {$each: listOfUserId}};
+          console.log(reply);
           try{
+
+
+            console.log(course.id);
           let updatedCourse = await Course.findByIdAndUpdate(course.id, { $addToSet: reply }, {new: true});
           if (!updatedCourse) {
-                return console.log('Not Found Error');
+                return console.log('Not Found Error ');
               } else {
                 console.log('OK');
               }
             } catch (err) {
-              console.log('Error');
+              console.log('Error course');
             }
       });
-
+    }catch(err) {console.log('Error user');}
     }
   }
 }
-
-
-
-
 
 function checkIfSigned(useremail, subject){
   for (group of readyStudentsEnrollment[subject]) {
@@ -101,11 +100,9 @@ function checkIfSigned(useremail, subject){
   return false;
 }
 
-
 function findGroup(i,j){
   return readyStudentsEnrollment[studentsEnrollment[i][j].subject].find(x => x.id === studentsEnrollment[i][j].group);
 }
-
 
 // Fisher-Yates shuffle
 function shuffle(array) {
@@ -115,7 +112,7 @@ function shuffle(array) {
   }
 }
 
-function prepareArrays(){
+async function prepareArrays(){
   var choiceSize = Object.keys(studentsEnrollment[0]).length -1;
   for(var i=0; i< choiceSize; i++){
   readyStudentsEnrollment[studentsEnrollment[0][i].subject]= [];
@@ -125,54 +122,13 @@ function prepareArrays(){
   }
 }
 
-
-
-
-
-
-
-
-
-function getMaxParticipants(courseId, callback){
-  Course.findById(courseId, function(err, item){
-    if(!err) {
-      callback(null,item);
-    } else {
-      callback("error");
-    }
-  });
+async function getMaxParticipants(){
+  let maxarr = await Course.find({});
+  for (max of maxarr) {
+    maxcourse.push({id: max._id , max: max.maxparticipants});
+  }
 }
 
-// module.exports.enroll = function(req, res) {
-//   var email= req.body.useremail;
-//   delete req.body.useremail;
-//   var choices = req.body;
-//     console.log("Przedmiot:" +choices);
-//   var isEnrolled = false;
-//      for (subject in choices){
-//        for (choice in choices[subject]){
-//          console.log("wybór:" +choice);
-//          User.findOne({email: email}, function (err, user) {
-//            var reply = { participants: mongoose.Types.ObjectId(user._id)};
-//            Course.findById(choices[subject][choice], function(err, doc){
-//              if (!doc.participants.includes(user._id)){
-//                if(doc.participants.length==null) {var participantsAmount = 0;}
-//                else {var participantsAmount = doc.participants.length;}
-//                if (participantsAmount< doc.maxparticipants) {
-//                  Course.findByIdAndUpdate(choices[subject][choice], { $push: reply }, {new: true}  , function(err, doc){
-//                    if (err) {return console.log("Update error: " + err);}
-//                    else {setIsEnrolled(isEnrolled);}
-//                   });
-//               }
-//             }
-//          });
-//        });
-//        if (isEnrolled) {break;}
-//      }
-//   }
-//   res.status(200).json("Zapisałeś się!");
-// };
-//
-// function setIsEnrolled(isEnrolled) {
-//   isEnrolled=(!isEnrolled);
-// }
+function findMaxParticipants(i, j){
+  return maxcourse.find(x => String(x.id) === studentsEnrollment[i][j].group);
+}
