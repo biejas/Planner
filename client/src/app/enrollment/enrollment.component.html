@@ -4,23 +4,13 @@
     <div class="col-md-6">
       <h1>Zapisy na zajecia</h1>
       <form (submit)="enroll()">
-          <div class="form-group" *ngFor="let subject of subjectsArray">
-            <h3>{{ subject }} </h3> <br/>
-            <label for="choices[subject].choice1">Wybór 1</label>
-            <select name="choice1" [(ngModel)]="choices[subject].choice1">
-              <option *ngFor="let course of subjects[subject]" [value]="course._id">{{ course.group }}</option>
-            </select>
-
-            <label for="choices[subject].choice2">Wybór 2</label>
-
-            <select name="choice2" [(ngModel)]="choices[subject].choice2" >
-              <option *ngFor="let course of subjects[subject]" [value]="course._id">{{ course.group }}</option>
-            </select>
-
-            <label for="choices[subject].choice3">Wybór 3</label>
-
-            <select name="choice3" [(ngModel)]="choices[subject].choice3" >
-              <option *ngFor="let course of subjects[subject]" [value]="course._id">{{ course.group }}</option>
+        <div class="form-group" *ngFor="let prio of priorityNumbers">
+          <label for="choices[prio]"> {{prio + 1}}</label>
+          <select name="subject" [(ngModel)]="choices[prio].subject">
+            <option *ngFor="let subject of subjectsArray" [value]="subject">{{ subject }}</option>
+          </select>
+            <select name="group" [(ngModel)]="choices[prio].group">
+                <option *ngFor="let course of subjects[choices[prio].subject]" [value]="course._id">{{ course.group }}</option>
             </select>
           </div>
           <button type="submit" class="btn btn-default">Enroll!</button>
