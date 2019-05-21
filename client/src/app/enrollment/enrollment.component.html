@@ -6,11 +6,13 @@
       <form (submit)="enroll()">
         <div class="form-group" *ngFor="let prio of priorityNumbers">
           <label for="choices[prio]"> {{prio + 1}}</label>
-          <select name="subject" [(ngModel)]="choices[prio].subject">
-            <option *ngFor="let subject of subjectsArray" [value]="subject">{{ subject }}</option>
+          <select name="subject" [(ngModel)]="choices[prio].subject" required>
+            <option value="">Przedmiot</option>
+            <option *ngFor="let subject of subjectsArray" [value]="subject">{{subject}}</option>
           </select>
-            <select name="group" [(ngModel)]="choices[prio].group">
-                <option *ngFor="let course of subjects[choices[prio].subject]" [value]="course._id">{{ course.group }}</option>
+            <select  name="group" [(ngModel)]="choices[prio].group" required>
+                <option value="">Grupa</option>
+                <option *ngFor="let course of subjects[choices[prio].subject]" [value]="course._id">{{course.group}}</option>
             </select>
           </div>
           <button type="submit" class="btn btn-default">Enroll!</button>
