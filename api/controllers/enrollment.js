@@ -4,13 +4,10 @@ var User = mongoose.model('User');
 var Course = mongoose.model('Course');
 var Subject = mongoose.model('Subject');
 var Teacher = mongoose.model('Teacher');
-
 mongoose.Promise = global.Promise;
 
 var studentsEnrollment = [];
 var readyStudentsEnrollment = {};
-var smiesznaZmienna = 0;
-
 var maxcourse=[];
 getMaxParticipants();
 
@@ -23,20 +20,15 @@ module.exports.courses = function(req, res){
 
 module.exports.enroll = function(req, res){
         studentsEnrollment.push(req.body);
-        smiesznaZmienna++;
-        res.status(200).json("Zapisałeś się!");
-      if(smiesznaZmienna>1) {
-        prepareArrays();
-        finishEnrollment();
-      }
-
+        res.status(200).json("Wysłano!");
 };
 
-function finishEnrollment(){
+module.exports.finishEnrollment= function(req, res){
+      prepareArrays();
       startEnrolling();
       sendEnrollmentsToDatabase();
       studentsEnrollment.length = 0;
-      smiesznaZmienna = 0;
+      res.status(200).json("Zapisy skończone!");
 }
 
 function startEnrolling(){
@@ -73,20 +65,7 @@ async function sendEnrollmentsToDatabase(){
         } catch (err) {
               console.log('Error course');
             }
-    for (subject in choices){
-      for (choice in choices[subject]){
-        User.findOne({email: email}, function (err, user) {
-          var reply = { participants: mongoose.Types.ObjectId(user._id)};
-          Course.findById(choices[subject][choice], function(err, doc){
-            Course.findByIdAndUpdate(choices[subject][choice], { $push: reply }, {returnNewDocument: true}  , function(err, doc){
-              if (err) return console.log("Update error: " + err);
-              });
-        });
-    });
-    break;
-  }
-      });
-    } catch(err) {
+    });} catch(err) {
       console.log('Error user');
       }
     }

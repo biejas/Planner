@@ -24,4 +24,8 @@ export class AdminpanelService {
   public addSubject(newSubject : NewSubject): Observable<any>{
     return this.http.post(`api/subjects`,newSubject);
   }
+
+  public finishEnrollment(): Observable<any>{
+      return this.http.post(`api/admin`, {});
+  }
 }

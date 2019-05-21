@@ -25,5 +25,6 @@ router.post('/enroll', ctrlEnroll.enroll);
 //adminpanel
 router.get('/admin', auth, ctrlAdmin.adminRead);
 router.post('/subjects', ctrlAdmin.addSubject);
+router.post('/admin', ctrlEnroll.finishEnrollment);
 
 module.exports = router;

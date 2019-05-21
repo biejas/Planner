@@ -8,6 +8,8 @@ import { EnrollmentService } from '../enrollment.service';
   styleUrls: ['./adminpanel.component.css']
 })
 export class AdminpanelComponent implements OnInit {
+  private enrollResponse;
+
 
   newSubject : NewSubject = {
     name : '',
@@ -32,6 +34,14 @@ export class AdminpanelComponent implements OnInit {
   addSubject() {
     console.log(this.newSubject);
     this.adminpanel.addSubject(this.newSubject).subscribe(str=> {
+    }, (err) => {
+      console.error(err);
+    });
+  }
+
+  finishEnrollment() {
+    this.adminpanel.finishEnrollment().subscribe(str=> {
+      this.enrollResponse = str;
     }, (err) => {
       console.error(err);
     });
