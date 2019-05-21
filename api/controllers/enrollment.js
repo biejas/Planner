@@ -39,7 +39,7 @@ function finishEnrollment(){
       smiesznaZmienna = 0;
 }
 
-async function startEnrolling(){
+function startEnrolling(){
     var choiceSize = Object.keys(studentsEnrollment[0]).length -1;
     for(var j=0; j< choiceSize; j++){
       for(var i=0; i< studentsEnrollment.length; i++){
@@ -66,27 +66,17 @@ async function sendEnrollmentsToDatabase(){
           for (user of docs) {
             listOfUserId.push(user._id);
           }
-          console.log("start");
-          console.log(listOfUserId);
-
-
           reply={participants: {$each: listOfUserId}};
-          console.log(reply);
           try{
-
-
-            console.log(course.id);
-          let updatedCourse = await Course.findByIdAndUpdate(course.id, { $addToSet: reply }, {new: true});
-          if (!updatedCourse) {
-                return console.log('Not Found Error ');
-              } else {
-                console.log('OK');
-              }
-            } catch (err) {
+            let updatedCourse = await Course.findByIdAndUpdate(course.id, { $addToSet: reply }, {new: true});
+            if (!updatedCourse) { console.log('Not Found Error ');  }
+        } catch (err) {
               console.log('Error course');
             }
       });
-    }catch(err) {console.log('Error user');}
+    } catch(err) {
+      console.log('Error user');
+      }
     }
   }
 }
@@ -112,10 +102,10 @@ function shuffle(array) {
   }
 }
 
-async function prepareArrays(){
+function prepareArrays(){
   var choiceSize = Object.keys(studentsEnrollment[0]).length -1;
   for(var i=0; i< choiceSize; i++){
-  readyStudentsEnrollment[studentsEnrollment[0][i].subject]= [];
+    readyStudentsEnrollment[studentsEnrollment[0][i].subject]= [];
   }
   for(var i=0; i< choiceSize; i++){
     readyStudentsEnrollment[studentsEnrollment[0][i].subject].push({id: studentsEnrollment[0][i].group, participants: []});
