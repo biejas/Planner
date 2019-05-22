@@ -32,3 +32,21 @@ module.exports.addSubject = function(req, res){
         }
     });
 }
+
+module.exports.deleteElement = function(req, res){
+    Subject.findOneAndRemove({_id : req.body._id },function(err, obj){
+        if (err) {
+            console.log(err);
+            return;
+        }
+    });
+}
+
+module.exports.deleteCourse = function(req, res){
+    Course.findOneAndRemove({_id : req.body._id },function(err, obj){
+        if (err) {
+            console.log(err);
+            return;
+        }
+    });
+}

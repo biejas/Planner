@@ -28,4 +28,12 @@ export class AdminpanelService {
   public finishEnrollment(): Observable<any>{
       return this.http.post(`api/admin`, {});
   }
+
+  public deleteElement(element): Observable<any>{
+    return this.http.put(`api/subjects`,element);
+  }
+
+  public deleteCourse(element): Observable<any>{
+    return this.http.put(`api/courses`,element);
+  }
 }

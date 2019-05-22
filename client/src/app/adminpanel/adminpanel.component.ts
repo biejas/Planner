@@ -10,6 +10,7 @@ import { EnrollmentService } from '../enrollment.service';
 export class AdminpanelComponent implements OnInit {
   private enrollResponse;
 
+  subjects = [];
 
   newSubject : NewSubject = {
     name : '',
@@ -19,6 +20,13 @@ export class AdminpanelComponent implements OnInit {
   constructor(private adminpanel : AdminpanelService,  private enrollservice: EnrollmentService) { }
 
   ngOnInit() {
+    this.getCourses();
+  }
+
+  getCourses (){
+    this.enrollservice.courses().subscribe(subs =>{
+      this.subjects=subs;
+    });
   }
 
   addGroup() {
@@ -37,6 +45,25 @@ export class AdminpanelComponent implements OnInit {
     }, (err) => {
       console.error(err);
     });
+    this.getCourses();
+  }
+
+  deleteElement(element){
+    console.log(element);
+    this.adminpanel.deleteElement(element).subscribe(str=> {
+    }, (err) => {
+      console.error(err);
+    });
+    this.getCourses();
+  }
+
+  deleteCourse(element){
+    console.log(element);
+    this.adminpanel.deleteCourse(element).subscribe(str=> {
+    }, (err) => {
+      console.error(err);
+    });
+    this.getCourses();
   }
 
   finishEnrollment() {

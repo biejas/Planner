@@ -20,11 +20,14 @@ router.post('/login', ctrlAuth.login);
 
 //enrollment
 router.get('/courses', ctrlEnroll.courses);
+router.put('/courses', ctrlAdmin.deleteCourse);
 router.post('/enroll', ctrlEnroll.enroll);
 
 //adminpanel
 router.get('/admin', auth, ctrlAdmin.adminRead);
-router.post('/subjects', ctrlAdmin.addSubject);
 router.post('/admin', ctrlEnroll.finishEnrollment);
+
+router.post('/subjects', ctrlAdmin.addSubject);
+router.put('/subjects', ctrlAdmin.deleteElement);
 
 module.exports = router;
