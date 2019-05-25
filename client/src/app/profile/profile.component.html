@@ -1,32 +1,51 @@
 <div class="container">
   <div class="row">
-    
      <div class="col-md-6">
-
-      <h1 class="form-signin-heading">Your profile</h1>
-
-      <div class="form-horizontal">
-        <div class="form-group">
-          <label class="col-sm-3 control-label">Full name</label>
-          <p class="form-control-static">{{ details?.name }}</p>
+        <h1 class="form-signin-heading">Your profile</h1>
+        <div class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Full name</label>
+            <p class="form-control-static">{{ details?.name }}</p>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Email</label>
+            <p class="form-control-static">{{ details?.email }}</p>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Gr dziekanatowa</label>
+            <p class="form-control-static">{{ details?.fgroup }}</p>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Gr laboratoryjna</label>
+            <p class="form-control-static">{{ details?.lgroup }}</p>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Zajęcia</label> <br/><br/>
+            <div class="container">
+              <table class="table table-striped">
+                <thead>
+                    <tr>
+                      <th>Index</th>
+                      <th>Przedmiot</th>
+                      <th>Grupa</th>
+                      <th>Rodzaj kursu</th>
+                      <th>Prowadzący</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let c of details?.courses; let i = index">
+                    <td>{{ i+1 }}</td>
+                    <td>{{c.subjectname}}</td>
+                    <td>{{c.course.group}}</td>
+                    <td>{{c.course.coursetype}}</td>
+                    <td>{{c.course.teacher}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
         </div>
-        <div class="form-group">
-          <label class="col-sm-3 control-label">Email</label>
-          <p class="form-control-static">{{ details?.email }}</p>
+          <p class="lead">Zapisy na zajecia -> <a routerLink="/enroll">tutaj</a></p>
         </div>
-        <div class="form-group">
-          <label class="col-sm-3 control-label">Gr dziekanatowa</label>
-          <p class="form-control-static">{{ details?.fgroup }}</p>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3 control-label">Gr laboratoryjna</label>
-          <p class="form-control-static">{{ details?.lgroup }}</p>
-        </div>
-      </div>
-
-      <p class="lead">Zapisy na zajecia -> <a routerLink="/enroll">tutaj</a></p>
-
-    </div>
-
+     </div>
   </div>
 </div>

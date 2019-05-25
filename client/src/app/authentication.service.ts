@@ -10,6 +10,7 @@ export interface UserDetails {
   name: string;
   exp: number;
   iat: number;
+  courses: [];
 }
 
 interface TokenResponse {
@@ -21,7 +22,7 @@ export interface TokenPayload {
   password: string;
   name?: string;
   fgroup?: string;
-  lgroup?: string
+  lgroup?: string;
 }
 
 @Injectable()
