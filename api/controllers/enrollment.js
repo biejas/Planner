@@ -20,7 +20,7 @@ module.exports.courses = function(req, res){
 
 module.exports.enroll = function(req, res){
         studentsEnrollment.push(req.body);
-        res.status(200).json("Wysłano!");
+        res.json("Wysłano!");
 };
 
 module.exports.startEnrollment = async function(req, res){
@@ -39,10 +39,10 @@ module.exports.startEnrollment = async function(req, res){
       console.log(maxcourse);
       await getMaxParticipants();
       await Course.updateMany({}, { $set: {participants: []} }, {new: true});
-      res.status(200).json("Rozpoczęto zapisy!");
+      res.json("Rozpoczęto zapisy!");
     } catch(err){
       console.log("Nie udało się wyczyścić bazy"+err);
-      res.status(304).json("Nie udało się!");
+      res.json("Nie udało się!");
     }
 }
 
@@ -50,7 +50,7 @@ module.exports.finishEnrollment= function(req, res){
       prepareArrays();
       startEnrolling();
       sendEnrollmentsToDatabase();
-      res.status(200).json("Zapisy skończone!");
+      res.json("Zapisy skończone!");
 }
 
 function startEnrolling(){
