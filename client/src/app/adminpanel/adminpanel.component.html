@@ -54,9 +54,8 @@
       </div>
         <div>
         <h1>Zapisy</h1>
-          <form (submit)="finishEnrollment()">
-            <button type="submit" class="btn btn-default">Zakończ zapisy</button>
-          </form>
+          <button type="button" class="btn btn-default" (click)="startEnrollment()">Rozpocznij zapisy</button>
+          <button type="button" class="btn btn-default" (click)="finishEnrollment()">Zakończ zapisy</button>
           {{enrollResponse}}
       </div>
     </div>

@@ -26,6 +26,7 @@ router.post('/enroll', ctrlEnroll.enroll);
 //adminpanel
 router.get('/admin', auth, ctrlAdmin.adminRead);
 router.post('/admin', ctrlEnroll.finishEnrollment);
+router.put('/admin', ctrlEnroll.startEnrollment);
 
 router.post('/subjects', ctrlAdmin.addSubject);
 router.put('/subjects', ctrlAdmin.deleteElement);

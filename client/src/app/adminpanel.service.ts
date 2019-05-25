@@ -29,6 +29,10 @@ export class AdminpanelService {
       return this.http.post(`api/admin`, {});
   }
 
+  public startEnrollment(): Observable<any>{
+      return this.http.put(`api/admin`, {});
+  }
+
   public deleteElement(element): Observable<any>{
     return this.http.put(`api/subjects`,element);
   }

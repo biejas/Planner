@@ -9,7 +9,7 @@ mongoose.Promise = global.Promise;
 var studentsEnrollment = [];
 var readyStudentsEnrollment = {};
 var maxcourse=[];
-getMaxParticipants();
+
 
 module.exports.courses = function(req, res){
     var query = Subject.find().populate('courses');
@@ -23,11 +23,33 @@ module.exports.enroll = function(req, res){
         res.status(200).json("Wysłano!");
 };
 
+module.exports.startEnrollment = async function(req, res){
+    try{
+        while (studentsEnrollment.length) {
+        studentsEnrollment.pop();
+      }
+      while (maxcourse.length) {
+        maxcourse.pop();
+      }
+      for (var sub in readyStudentsEnrollment) {
+        delete sub;
+      }
+      console.log(studentsEnrollment);
+      console.log(readyStudentsEnrollment);
+      console.log(maxcourse);
+      await getMaxParticipants();
+      await Course.updateMany({}, { $set: {participants: []} }, {new: true});
+      res.status(200).json("Rozpoczęto zapisy!");
+    } catch(err){
+      console.log("Nie udało się wyczyścić bazy"+err);
+      res.status(304).json("Nie udało się!");
+    }
+}
+
 module.exports.finishEnrollment= function(req, res){
       prepareArrays();
       startEnrolling();
       sendEnrollmentsToDatabase();
-      studentsEnrollment.length = 0;
       res.status(200).json("Zapisy skończone!");
 }
 

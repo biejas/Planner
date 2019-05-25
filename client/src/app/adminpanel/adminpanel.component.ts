@@ -74,4 +74,11 @@ export class AdminpanelComponent implements OnInit {
     });
   }
 
+  startEnrollment() {
+    this.adminpanel.startEnrollment().subscribe(str=> {
+      this.enrollResponse = str;
+    }, (err) => {
+      console.error(err);
+    });
+  }
 }
