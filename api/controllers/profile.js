@@ -18,9 +18,17 @@ module.exports.profileRead = async function(req, res) {
             let cou=await Course.findOne({_id: sub.courses, participants: req.payload._id}, async function (err, course){
               return course;
               });
+              if(cou==null){
+                cou = {
+                  group : "Brak",
+                  teacher: "Brak",
+                  coursetype: "Brak"
+                }
+              }
               subjectcourse.push({course: cou, subjectname: sub.name});
             }
-            res.status(200).json({user: user, course: subjectcourse});
+              res.status(200).json({user: user, course: subjectcourse});
+
           });
       });
   }

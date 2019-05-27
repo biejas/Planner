@@ -7,15 +7,6 @@ const courseschema = new mongoose.Schema({
     group: {
         type: String
     },
-    // subject: {
-    //     type: mongoose.SchemaTypes.ObjectId,
-    //     ref: 'Subject',
-    //     required: true
-    // },
-    // teacher: {
-    //     type: mongoose.SchemaTypes.ObjectId,
-    //     ref: 'Teacher'
-    // },
     teacher: {
         type: String
     },

@@ -51,7 +51,7 @@ export class EnrollmentComponent implements OnInit {
     });
 
     this.auth.profile().subscribe(user => {
-      this.choices['useremail'] = user.email;
+      this.choices['useremail'] = user.user.email;
     }, (err) => {
       console.error(err);
     });

@@ -34,9 +34,6 @@ module.exports.startEnrollment = async function(req, res){
       for (var sub in readyStudentsEnrollment) {
         delete sub;
       }
-      console.log(studentsEnrollment);
-      console.log(readyStudentsEnrollment);
-      console.log(maxcourse);
       await getMaxParticipants();
       await Course.updateMany({}, { $set: {participants: []} }, {new: true});
       res.json("Rozpoczęto zapisy!");
@@ -54,7 +51,7 @@ module.exports.finishEnrollment= function(req, res){
 }
 
 function startEnrolling(){
-    var choiceSize = Object.keys(studentsEnrollment[0]).length -1;
+    var choiceSize = Object.keys(studentsEnrollment[0]).length-1;
     for(var j=0; j< choiceSize; j++){
       for(var i=0; i< studentsEnrollment.length; i++){
         let gro = findGroup(i,j);
@@ -116,7 +113,7 @@ function shuffle(array) {
 }
 
 function prepareArrays(){
-  var choiceSize = Object.keys(studentsEnrollment[0]).length -1;
+  var choiceSize = Object.keys(studentsEnrollment[0]).length-1;
   for(var i=0; i< choiceSize; i++){
     readyStudentsEnrollment[studentsEnrollment[0][i].subject]= [];
   }

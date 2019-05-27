@@ -30,5 +30,6 @@ router.put('/admin', ctrlEnroll.startEnrollment);
 
 router.post('/subjects', ctrlAdmin.addSubject);
 router.put('/subjects', ctrlAdmin.deleteElement);
+router.get('/subjects', ctrlAdmin.getEnrollmentResult);
 
 module.exports = router;

@@ -17,6 +17,8 @@ export class AdminpanelComponent implements OnInit {
     groups : new Array
   }
 
+  enrollmentResult = [];
+
   constructor(private adminpanel : AdminpanelService,  private enrollservice: EnrollmentService) { }
 
   ngOnInit() {
@@ -81,4 +83,15 @@ export class AdminpanelComponent implements OnInit {
       console.error(err);
     });
   }
+
+  getEnrollmentResult(){
+    this.adminpanel.getEnrollmentResult().subscribe(str=> {
+      this.enrollmentResult = str;
+    }, (err) => {
+      console.error(err);
+    });
+  }
+
+
+
 }

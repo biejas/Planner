@@ -50,3 +50,22 @@ module.exports.deleteCourse = function(req, res){
         }
     });
 }
+
+module.exports.getEnrollmentResult= async function(req,res){
+  var subjectcourse=[];
+  await Subject.find({}, async function (err, subjects){
+    for (sub of subjects) {
+        let cou=await Course.find({_id: sub.courses}, function (err, course){
+              return course;
+            }).populate('participants');
+              for(c of cou){
+                var participantsList=[];
+                for(student of c.participants){
+                  participantsList.push(student.name);
+                }
+                subjectcourse.push({subjectname: sub.name, group: c.group, participants: participantsList});
+              }
+            }
+            res.status(200).json(subjectcourse);
+          });
+}

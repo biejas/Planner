@@ -40,4 +40,8 @@ export class AdminpanelService {
   public deleteCourse(element): Observable<any>{
     return this.http.put(`api/courses`,element);
   }
+
+  public getEnrollmentResult(): Observable<any>{
+    return this.http.get(`api/subjects`);
+  }
 }

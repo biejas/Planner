@@ -58,5 +58,32 @@
           <button type="button" class="btn btn-default" (click)="finishEnrollment()">Zakończ zapisy</button>
           {{enrollResponse}}
       </div>
+      <div>
+        <h1>Wyniki zapisów</h1>
+        <button type="button" class="btn btn-default" (click)="getEnrollmentResult()">Zobacz</button>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Wyniki zapisów</label> <br/><br/>
+              <div class="container">
+                <table class="table table-striped">
+                  <thead>
+                      <tr>
+                        <th>Index</th>
+                        <th>Przedmiot</th>
+                        <th>Grupa</th>
+                        <th>Uczestnicy</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let c of enrollmentResult; let i = index">
+                      <td>{{ i+1 }}</td>
+                      <td>{{c.subjectname}}</td>
+                      <td>{{c.group}}</td>
+                      <td *ngFor="let p of c.participants">{{p}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+          </div>
+      </div>
     </div>
 </div>
