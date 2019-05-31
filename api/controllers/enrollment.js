@@ -3,7 +3,6 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Course = mongoose.model('Course');
 var Subject = mongoose.model('Subject');
-var Teacher = mongoose.model('Teacher');
 mongoose.Promise = global.Promise;
 
 var studentsEnrollment = [];
