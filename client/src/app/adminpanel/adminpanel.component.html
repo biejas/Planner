@@ -40,7 +40,7 @@
             <div *ngFor="let course of subject.courses">
               <h4>Grupa {{ course.group }}</h4>
               <button type="button" class="btn btn-default" (click)="deleteCourse(course)">usuń</button>
-              <a>Prowadzący : {{ course.teacher }} | Typ zajęć : {{ course.coursetype }} | liczba uczestnikow : {{ course.maxparticipants }}</a>
+              <a>Prowadzący : {{ course.teacher }} | Typ zajęć : {{ course.coursetype }} | Liczba uczestników : {{ course.maxparticipants }}</a>
             </div>
             <hr/>
           </div>
