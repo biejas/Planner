@@ -19,13 +19,21 @@ var userSchema = new mongoose.Schema({
     type: String
   },
   hash: String,
-  salt: String
+  salt: String,
+  admin: {
+    type:Boolean,
+    default: false
+  }
 });
 
 userSchema.methods.setPassword = function(password){
   this.salt = crypto.randomBytes(16).toString('hex');
   this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
 };
+
+userSchema.methods.grantAdmin = function(){
+  this.admin = true;
+}
 
 userSchema.methods.validPassword = function(password) {
   var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
@@ -41,6 +49,7 @@ userSchema.methods.generateJwt = function() {
     email: this.email,
     name: this.name,
     exp: parseInt(expiry.getTime() / 1000),
+    admin: this.admin
   }, "MY_SECRET"); // DO NOT KEEP YOUR SECRET IN THE CODE!
 };
 

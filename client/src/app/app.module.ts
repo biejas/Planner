@@ -1,3 +1,4 @@
+import { AdminAuthGuardService } from './admin-auth-guard.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,7 +25,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
   { path: 'enroll', component: EnrollmentComponent, canActivate: [AuthGuardService] },
-  { path: 'admin', component: AdminpanelComponent, canActivate: [AuthGuardService] }
+  { path: 'admin', component: AdminpanelComponent, canActivate: [AuthGuardService, AdminAuthGuardService] }
 ];
 
 @NgModule({
@@ -49,7 +50,8 @@ const routes: Routes = [
     AuthGuardService,
     EnrollmentService,
     WebsocketService,
-    AdminpanelService
+    AdminpanelService,
+    AdminAuthGuardService
   ],
   bootstrap: [AppComponent]
 })

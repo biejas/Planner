@@ -10,6 +10,7 @@ export interface UserDetails {
   name: string;
   exp: number;
   iat: number;
+  admin: boolean;
   courses: [];
 }
 
@@ -59,6 +60,15 @@ export class AuthenticationService {
     const user = this.getUserDetails();
     if (user) {
       return user.exp > Date.now() / 1000;
+    } else {
+      return false;
+    }
+  }
+
+  public isAdmIn(): boolean {
+    const user = this.getUserDetails();
+    if (user.admin) {
+      return true;
     } else {
       return false;
     }
