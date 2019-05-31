@@ -3,18 +3,18 @@
   <div class="row">
     <div class="col-md-6">
       <h1>Register</h1>
-      <p class="lead">Already a member? Please <a routerLink="/login">log in</a> instead.</p>
+      <p class="lead">Jesteś już zarejestrowany? Prosze <a routerLink="/login">zaloguj się</a>.</p>
       <form (submit)="register()">
         <div class="form-group">
-          <label for="name">Full name</label>
+          <label for="name">Imię i nazwisko</label>
           <input type="text" class="form-control" name="name" placeholder="Enter your name" [(ngModel)]="credentials.name">
         </div>
         <div class="form-group">
-          <label for="email">Email address</label>
+          <label for="email">Email</label>
           <input type="email" class="form-control" name="email" placeholder="Enter email" [(ngModel)]="credentials.email">
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
+          <label for="password">Hasło</label>
           <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="credentials.password">
         </div>
         <div class="form-group">
@@ -25,7 +25,7 @@
           <label for="lgroup">Grupa laboratoryjna</label>
           <input type="text" class="form-control" name="fgroup" placeholder="Grupa laboratoryjna" [(ngModel)]="credentials.lgroup">
         </div>
-        <button type="submit" class="btn btn-default">Register!</button>
+        <button type="submit" class="btn btn-default">Zarejestruj!</button>
       </form>
     </div>
   </div>
