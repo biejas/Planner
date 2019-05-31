@@ -42,7 +42,6 @@ export class AdminpanelComponent implements OnInit {
   }
 
   addSubject() {
-    console.log(this.newSubject);
     this.adminpanel.addSubject(this.newSubject).subscribe(str=> {
     }, (err) => {
       console.error(err);
@@ -51,7 +50,6 @@ export class AdminpanelComponent implements OnInit {
   }
 
   deleteElement(element){
-    console.log(element);
     this.adminpanel.deleteElement(element).subscribe(str=> {
     }, (err) => {
       console.error(err);
@@ -60,7 +58,6 @@ export class AdminpanelComponent implements OnInit {
   }
 
   deleteCourse(element){
-    console.log(element);
     this.adminpanel.deleteCourse(element).subscribe(str=> {
     }, (err) => {
       console.error(err);
