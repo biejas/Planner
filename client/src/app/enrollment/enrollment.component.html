@@ -2,15 +2,15 @@
 
   <div class="row">
     <div class="col-md-6">
-      <h1>Zapisy na zajecia</h1>
+      <h1>Zapisy na zajęcia</h1>
       <form (submit)="enroll()">
         <div class="form-group" *ngFor="let prio of priorityNumbers">
           <label for="choices[prio]"> {{prio + 1}}</label>
-          <select name="subject" class="form-control" [(ngModel)]="choices[prio].subject" required>
+          <select name="subject"  class="form-control" [(ngModel)]="choices[prio].subject" required>
             <option value="">Przedmiot</option>
             <option *ngFor="let subject of subjectsArray" [value]="subject">{{subject}}</option>
           </select>
-            <select  name="group" class="form-control" [(ngModel)]="choices[prio].group" required>
+            <select  name="group"  class="form-control" [(ngModel)]="choices[prio].group" required>
                 <option value="">Grupa</option>
                 <option *ngFor="let course of subjects[choices[prio].subject]" [value]="course._id">{{course.group}}</option>
             </select>
