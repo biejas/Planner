@@ -1,5 +1,27 @@
 <div class="container">
-  <div class="row">
+    <div class="row" *ngIf="enrollmentResult.length">
+      <div class="container">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Index</th>
+              <th>Przedmiot</th>
+              <th>Grupa</th>
+              <th>Uczestnicy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of enrollmentResult; let i = index">
+              <td>{{ i+1 }}</td>
+              <td>{{c.subjectname}}</td>
+              <td>{{c.group}}</td>
+              <td *ngFor="let p of c.participants">{{p}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-md-6">
         <h1>Przedmioty</h1>
         <h2>Dodaj przedmiot</h2>
@@ -9,12 +31,6 @@
               <label for="name">Nazwa przedmiotu</label>
               <input type="text" class="form-control" name="name" placeholder="wpisz nazwe" [(ngModel)]="newSubject.name">
             </div>
-            <!-- <div class="form-group">
-              <label for="numberGroups">liczba grup</label>
-              <select class="form-control" name="numberGroups" [(ngModel)]="numberGroups">
-                <option *ngFor="let number of [1,2,3,4,5,6,7,8,9,10]" [value]="number">{{ number }}</option>
-              </select>
-            </div> -->
             <button type="button" class="btn btn-default" (click)="addGroup()">+</button>
             <div *ngFor="let index of newSubject.groups">
               <div class="form-group">
@@ -42,48 +58,30 @@
           <h2>Lista przedmiotów</h2>
           <div *ngFor="let subject of subjects">
             <h3>{{ subject.name }}</h3>
-            <button type="button" class="btn btn-default" (click)="deleteElement(subject)">usuń</button>
+            <button type="button" class="btn btn-default" (click)="deleteElement(subject)">usuń przedmiot</button>
             <div *ngFor="let course of subject.courses">
               <h4>Grupa {{ course.group }}</h4>
-              <button type="button" class="btn btn-default" (click)="deleteCourse(course)">usuń</button>
-              <a>prowadzacy : {{ course.teacher }} | typ zajec : {{ course.coursetype }} | liczba uczestnikow : {{ course.maxparticipants }}</a>
+              <button type="button" class="btn btn-default" (click)="deleteCourse(course)">usuń grupę </button>
+              <p>prowadzacy : {{ course.teacher }} | typ zajec : {{ course.coursetype }} | liczba uczestnikow : {{ course.maxparticipants }}</p>
             </div>
             <hr/>
           </div>
         </div>
       </div>
-        <div>
-        <h1>Zapisy</h1>
-          <button type="button" class="btn btn-default" (click)="startEnrollment()">Rozpocznij zapisy</button>
-          <button type="button" class="btn btn-default" (click)="finishEnrollment()">Zakończ zapisy</button>
-          {{enrollResponse}}
+
+      <div class="col-md-6">
+        <div class="row">
+            <h1>Zapisy</h1>
+            <button type="button" class="btn btn-default" (click)="startEnrollment()">Rozpocznij zapisy</button>
+            <button type="button" class="btn btn-default" (click)="finishEnrollment()">Zakończ zapisy</button>
+            {{enrollResponse}}
+        </div>
       </div>
       <div>
         <h1>Wyniki zapisów</h1>
         <button type="button" class="btn btn-default" (click)="getEnrollmentResult()">Zobacz</button>
-            <div class="form-group">
-              <label class="col-sm-3 control-label">Wyniki zapisów</label> <br/><br/>
-              <div class="container">
-                <table class="table table-striped">
-                  <thead>
-                      <tr>
-                        <th>Index</th>
-                        <th>Przedmiot</th>
-                        <th>Grupa</th>
-                        <th>Uczestnicy</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let c of enrollmentResult; let i = index">
-                      <td>{{ i+1 }}</td>
-                      <td>{{c.subjectname}}</td>
-                      <td>{{c.group}}</td>
-                      <td *ngFor="let p of c.participants">{{p}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-          </div>
+        
+        </div>
       </div>
-    </div>
+  
 </div>
