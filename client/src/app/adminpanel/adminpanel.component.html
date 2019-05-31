@@ -9,28 +9,22 @@
               <label for="name">Nazwa przedmiotu</label>
               <input type="text" class="form-control" name="name" placeholder="wpisz nazwe" [(ngModel)]="newSubject.name">
             </div>
-            <!-- <div class="form-group">
-              <label for="numberGroups">liczba grup</label>
-              <select class="form-control" name="numberGroups" [(ngModel)]="numberGroups">
-                <option *ngFor="let number of [1,2,3,4,5,6,7,8,9,10]" [value]="number">{{ number }}</option>
-              </select>
-            </div> -->
             <button type="button" class="btn btn-default" (click)="addGroup()">+</button>
             <div *ngFor="let index of newSubject.groups">
               <div class="form-group">
-                  <label for="groupIndex{{index}}">grupa</label>
+                  <label for="groupIndex{{index}}">Grupa</label>
                   <input type="text" class="form-control" name="groupIndex{{index}}" placeholder="wpisz grupe" [(ngModel)]="index.group">
               </div>
               <div class="form-group">
-                  <label for="courseType{{index}}">typ zajec</label>
+                  <label for="courseType{{index}}">Typ zajęć</label>
                   <input type="text" class="form-control" name="courseType{{index}}" placeholder="wpisz rodzaj" [(ngModel)]="index.coursetype">
               </div>
               <div class="form-group">
-                  <label for="teacher{{index}}">prowadzacy</label>
+                  <label for="teacher{{index}}">Prowadzący</label>
                   <input type="text" class="form-control" name="teacher{{index}}" placeholder="nazwisko prowadzacego" [(ngModel)]="index.teacher">
               </div>
               <div class="form-group">
-                  <label for="maxParticipants{{index}}">liczba uczestnikow</label>
+                  <label for="maxParticipants{{index}}">Liczba uczestników</label>
                   <input type="text" class="form-control" name="maxParticipants{{index}}" placeholder="liczba uczestnikow" [(ngModel)]="index.maxparticipants">
               </div>
               <hr/>
@@ -46,7 +40,7 @@
             <div *ngFor="let course of subject.courses">
               <h4>Grupa {{ course.group }}</h4>
               <button type="button" class="btn btn-default" (click)="deleteCourse(course)">usuń</button>
-              <a>prowadzacy : {{ course.teacher }} | typ zajec : {{ course.coursetype }} | liczba uczestnikow : {{ course.maxparticipants }}</a>
+              <a>Prowadzący : {{ course.teacher }} | Typ zajęć : {{ course.coursetype }} | liczba uczestnikow : {{ course.maxparticipants }}</a>
             </div>
             <hr/>
           </div>
@@ -62,7 +56,6 @@
         <h1>Wyniki zapisów</h1>
         <button type="button" class="btn btn-default" (click)="getEnrollmentResult()">Zobacz</button>
             <div class="form-group">
-              <label class="col-sm-3 control-label">Wyniki zapisów</label> <br/><br/>
               <div class="container">
                 <table class="table table-striped">
                   <thead>
